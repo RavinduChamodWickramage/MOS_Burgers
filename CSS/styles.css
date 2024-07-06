@@ -1,0 +1,112 @@
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #fef6ca;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+.logo img {
+  width: 200px;
+  height: auto;
+  cursor: pointer;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #270000;
+}
+
+.btn-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn {
+  background-color: #ff952f;
+  color: #270000;
+  width: 200px;
+  padding: 15px;
+  margin: 10px;
+  border: none;
+  border-radius: 50px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-size: 1.2em;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn:hover {
+  background-color: #270000;
+  color: #ff952f;
+  transform: scale(1.05);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.login-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.label {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: medium;
+  color: #270000;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+  width: 400px;
+  height: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: medium;
+  margin-bottom: 10px;
+}
+
+.button-group,
+.home-link {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.clear-btn,
+.login-btn {
+  width: 80px;
+  font-size: 1em;
+  height: 30px;
+  padding: 1px;
+  margin: 5px;
+}
+
+.home-btn {
+  width: 165px;
+  font-size: 1em;
+  height: 25px;
+  padding: 3px;
+  margin: 5px;
+}
+
+.admin-btn-panel {
+  margin-top: -100px;
+}
+
+.staff-btn {
+  width: 300px;
+}
