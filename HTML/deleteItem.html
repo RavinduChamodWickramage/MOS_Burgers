@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../CSS/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Delete Item Page</title>
+  </head>
+  <body>
+    <section class="logo">
+      <a href="index.html" class="home-button">
+        <img src="../Resources/MOS Burgers Logo.png" alt="MOS Burgers Logo" />
+      </a>
+    </section>
+    <section class="title vc">
+      <h1>Delete Item</h1>
+    </section>
+    <section class="form-panel">
+      <form>
+        <div class="search-row">
+          <input
+            type="text"
+            id="searchItemId"
+            name="searchItemId"
+            placeholder="Enter Item's Code or Name"
+            required
+          />
+          <button type="button" class="search-btn btn">Search</button>
+        </div>
+        <div class="form-group">
+          <div class="form-row">
+            <label class="label">Item Code</label>
+            <label class="item-label">B10##</label>
+          </div>
+          <div class="form-row">
+            <label class="label">Item Category</label>
+            <select id="category" name="category">
+              <option value="burgers">Burgers</option>
+              <option value="submarines">Submarines</option>
+              <option value="fries">Fries</option>
+              <option value="pasta">Pasta</option>
+              <option value="chicken">Chicken</option>
+              <option value="beverages">Beverages</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label class="label">Item Name</label>
+            <input type="text" id="itemName" name="itemName" required />
+          </div>
+          <div class="form-row">
+            <label class="label" for="itemPrice">Item Price</label>
+            <input
+              type="number"
+              id="itemPrice"
+              name="itemPrice"
+              step="0.01"
+              min="0"
+              placeholder="0.00"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <label class="label" for="itemDiscount">Item Discount (%)</label>
+            <input
+              type="number"
+              id="itemDiscount"
+              name="itemDiscount"
+              min="0"
+              max="100"
+              step="1"
+              placeholder="Enter discount percentage (e.g., 10, 20, 25)"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <div class="button-group">
+              <button type="button" class="clear-btn btn">Clear</button>
+              <button type="submit" class="delete-btn btn">Delete</button>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="staff-link">
+              <a href="staffPage.html" class="btn home-btn">Staff Page</a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../CSS/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Add Customer Page</title>
+  </head>
+  <body>
+    <section class="logo">
+      <a href="index.html" class="home-button">
+        <img src="../Resources/MOS Burgers Logo.png" alt="MOS Burgers Logo" />
+      </a>
+    </section>
+    <section class="title">
+      <h1>Add Customer</h1>
+    </section>
+    <section class="form-panel">
+      <form>
+        <div class="form-group">
+          <div class="form-row">
+            <label class="label">Customer ID</label>
+            <input
+              type="text"
+              id="customerId"
+              name="customerId"
+              placeholder="Enter Mobile Number"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <label class="label">Customer Name</label>
+            <input type="text" id="customerName" name="customerName" required />
+          </div>
+          <div class="form-row">
+            <label class="label">Customer Address</label>
+            <input
+              type="text"
+              id="customerAddress"
+              name="customerAddress"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <div class="button-group">
+              <button type="button" class="clear-btn btn">Clear</button>
+              <button type="submit" class="add-btn btn">Add</button>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="staff-link">
+              <a href="staffPage.html" class="btn home-btn">Staff Page</a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+  </body>
+</html>
