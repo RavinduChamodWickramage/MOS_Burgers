@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
-    <title>Delete Item Page</title>
+    <title>Delete Staff Page</title>
   </head>
   <body>
     <section class="logo">
@@ -19,11 +19,11 @@
       </a>
     </section>
     <section class="title vc">
-      <h1>Delete Item</h1>
+      <h1>Delete Staff</h1>
     </section>
     <section class="form-panel">
       <form>
-        <div class="search-row">
+        <div class="staff-search-row">
           <input
             type="text"
             id="searchItemId"
@@ -31,52 +31,34 @@
             placeholder="Enter Item's Code or Name"
             required
           />
-          <button type="button" class="search-btn btn">Search</button>
+          <button type="button" class="staff-search-btn btn">Search</button>
         </div>
         <div class="form-group">
           <div class="form-row">
-            <label class="label">Item Code</label>
-            <label class="item-code-label">B10##</label>
+            <label class="label staff-label">Login ID</label>
+            <label class="staff-code-label">MOS####</label>
           </div>
           <div class="form-row">
-            <label class="label">Item Category</label>
-            <select id="category" name="category">
-              <option value="burgers">Burgers</option>
-              <option value="submarines">Submarines</option>
-              <option value="fries">Fries</option>
-              <option value="pasta">Pasta</option>
-              <option value="chicken">Chicken</option>
-              <option value="beverages">Beverages</option>
-            </select>
-          </div>
-          <div class="form-row">
-            <label class="label">Item Name</label>
-            <input type="text" id="itemName" name="itemName" required />
-          </div>
-          <div class="form-row">
-            <label class="label" for="itemPrice">Item Price</label>
+            <label class="label staff-label">Staff Member ID</label>
             <input
-              type="number"
-              id="itemPrice"
-              name="itemPrice"
-              step="0.01"
-              min="0"
-              placeholder="0.00"
+              type="text"
+              id="staffId"
+              name="staffId"
+              placeholder="Enter Mobile Number"
               required
             />
           </div>
           <div class="form-row">
-            <label class="label" for="itemDiscount">Item Discount (%)</label>
-            <input
-              type="number"
-              id="itemDiscount"
-              name="itemDiscount"
-              min="0"
-              max="100"
-              step="1"
-              placeholder="Enter discount percentage (e.g., 10, 20, 25)"
-              required
-            />
+            <label class="label staff-label">Staff Member Name</label>
+            <input type="text" id="staffName" name="staffName" required />
+          </div>
+          <div class="form-row">
+            <label class="label staff-label">Staff Member Address</label>
+            <input type="text" id="staffAddress" name="staffAddress" required />
+          </div>
+          <div class="form-row">
+            <label class="label staff-label">Staff Member NIC</label>
+            <input type="text" id="staffNIC" name="staffNIC" required />
           </div>
           <div class="form-row">
             <div class="button-group">
@@ -85,8 +67,8 @@
             </div>
           </div>
           <div class="form-row">
-            <div class="staff-link">
-              <a href="staffPage.html" class="btn home-btn">Staff Page</a>
+            <div class="admin-link">
+              <a href="adminPage.html" class="btn home-btn">Admin Page</a>
             </div>
           </div>
         </div>

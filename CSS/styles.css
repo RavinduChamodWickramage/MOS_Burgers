@@ -83,7 +83,8 @@ textarea {
 
 .button-group,
 .home-link,
-.staff-link {
+.staff-link,
+.admin-link {
   display: flex;
   justify-content: flex-end;
   grid-column: span 2;
@@ -122,7 +123,6 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
 }
 
 .form-group {
@@ -223,7 +223,7 @@ textarea {
 }
 
 select {
-  width: 400px;
+  width: 420px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -231,8 +231,31 @@ select {
   margin-bottom: 10px;
 }
 
-.item-label {
+.item-code-label,
+.staff-code-label {
   padding-bottom: 10px;
   margin-bottom: 10px;
   font-weight: bold;
+}
+
+.staff-label {
+  width: 200px;
+}
+
+.staff-search-row {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 10px;
+}
+
+.staff-search-row input[type="text"] {
+  width: 100%;
+}
+
+.staff-search-btn {
+  width: 200px;
+  font-size: 1em;
+  height: 25px;
+  padding: 1px;
+  margin: 5px;
 }
