@@ -234,8 +234,8 @@ select {
 .item-code-label,
 .staff-code-label,
 .order-code-label {
-  padding-bottom: 10px;
-  margin-bottom: 10px;
+  /* padding-bottom: 10px; */
+  /* margin-bottom: 10px; */
   font-weight: bold;
 }
 
@@ -263,4 +263,83 @@ select {
 
 input {
   text-align: right;
+}
+
+.add-order-table {
+  border-collapse: collapse;
+  width: 70%;
+  margin: 1% auto;
+  table-layout: fixed;
+  font-size: smaller;
+}
+
+.add-order-table td {
+  border: 1px solid #000;
+  text-align: center;
+}
+
+.add-order-table th {
+  border: 1px solid #000;
+  background-color: #f2f2f2;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.itemCode,
+.itemPrice,
+.itemDiscount {
+  width: 100px;
+}
+
+.itemCategory,
+.itemQuantity,
+.itemTotal {
+  width: 125px;
+}
+
+.deleteBtn {
+  border: none;
+  background-color: transparent;
+}
+
+.deleteBtn i {
+  cursor: pointer;
+}
+
+input {
+  text-align: right;
+}
+
+.deleteBtn {
+  border: none;
+  background-color: transparent;
+  width: 25px;
+}
+
+.deleteBtn i {
+  cursor: pointer;
+}
+
+.add-order-table th.deleteBtn,
+.add-order-table td.deleteBtn {
+  border: none;
+  background-color: transparent;
+}
+
+.addBtn {
+  margin-left: 15%;
+  cursor: pointer;
+}
+
+.fa-regular {
+  cursor: pointer;
+}
+
+.order-search-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 10px;
 }
