@@ -22,7 +22,7 @@
       <h1>Update Staff</h1>
     </section>
     <section class="form-panel">
-      <form>
+      <form id="updateStaffForm">
         <div class="staff-search-row">
           <input
             type="text"
@@ -31,15 +31,23 @@
             placeholder="Enter Item's Code or Name"
             required
           />
-          <button type="button" class="staff-search-btn btn">Search</button>
+          <button
+            type="button"
+            class="staff-search-btn btn"
+            onclick="searchStaff()"
+          >
+            Search
+          </button>
         </div>
         <div class="form-group">
           <div class="form-row">
-            <label class="label staff-label">Login ID</label>
-            <label class="staff-code-label">MOS####</label>
+            <label class="label staff-label" for="loginId">Login ID</label>
+            <label id="loginId" class="staff-code-label">MOS####</label>
           </div>
           <div class="form-row">
-            <label class="label staff-label">Staff Member ID</label>
+            <label class="label staff-label" for="staffId"
+              >Staff Member ID</label
+            >
             <input
               type="text"
               id="staffId"
@@ -49,21 +57,35 @@
             />
           </div>
           <div class="form-row">
-            <label class="label staff-label">Staff Member Name</label>
+            <label class="label staff-label" for="staffName"
+              >Staff Member Name</label
+            >
             <input type="text" id="staffName" name="staffName" required />
           </div>
           <div class="form-row">
-            <label class="label staff-label">Staff Member Address</label>
+            <label class="label staff-label" for="staffAddress"
+              >Staff Member Address</label
+            >
             <input type="text" id="staffAddress" name="staffAddress" required />
           </div>
           <div class="form-row">
-            <label class="label staff-label">Staff Member NIC</label>
+            <label class="label staff-label" for="staffNIC"
+              >Staff Member NIC</label
+            >
             <input type="text" id="staffNIC" name="staffNIC" required />
           </div>
           <div class="form-row">
             <div class="button-group">
-              <button type="button" class="clear-btn btn">Clear</button>
-              <button type="submit" class="update-btn btn">Update</button>
+              <button type="button" class="clear-btn btn" onclick="clearForm()">
+                Clear
+              </button>
+              <button
+                type="submit"
+                class="update-btn btn"
+                onclick="updateStaff()"
+              >
+                Update
+              </button>
             </div>
           </div>
           <div class="form-row">
@@ -74,5 +96,6 @@
         </div>
       </form>
     </section>
+    <script src="../JS/app.js"></script>
   </body>
 </html>

@@ -22,7 +22,7 @@
       <h1>Update Item</h1>
     </section>
     <section class="form-panel">
-      <form>
+      <form id="updateItemForm">
         <div class="search-row">
           <input
             type="text"
@@ -31,12 +31,14 @@
             placeholder="Enter Item's Code or Name"
             required
           />
-          <button type="button" class="search-btn btn">Search</button>
+          <button type="button" class="search-btn btn" onclick="searchItem()">
+            Search
+          </button>
         </div>
         <div class="form-group">
           <div class="form-row">
-            <label class="label">Item Code</label>
-            <label class="item-code-label">B10##</label>
+            <label class="label" for="itemCode">Item Code</label>
+            <label class="item-code-label" id="itemCodeLabel">B10##</label>
           </div>
           <div class="form-row">
             <label class="label">Item Category</label>
@@ -50,7 +52,7 @@
             </select>
           </div>
           <div class="form-row">
-            <label class="label">Item Name</label>
+            <label class="label" for="itemName">Item Name</label>
             <input type="text" id="itemName" name="itemName" required />
           </div>
           <div class="form-row">
@@ -80,8 +82,16 @@
           </div>
           <div class="form-row">
             <div class="button-group">
-              <button type="button" class="clear-btn btn">Clear</button>
-              <button type="submit" class="update-btn btn">Update</button>
+              <button type="button" class="clear-btn btn" onclick="clearForm()">
+                Clear
+              </button>
+              <button
+                type="submit"
+                class="update-btn btn"
+                onclick="updateItem()"
+              >
+                Update
+              </button>
             </div>
           </div>
           <div class="form-row">
@@ -92,5 +102,6 @@
         </div>
       </form>
     </section>
+    <script src="../JS/app.js"></script>
   </body>
 </html>

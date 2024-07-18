@@ -22,7 +22,7 @@
       <h1>Delete Customer</h1>
     </section>
     <section class="form-panel">
-      <form>
+      <form id="deleteCustomerForm">
         <div class="search-row">
           <input
             type="text"
@@ -31,19 +31,25 @@
             placeholder="Enter Customer's Mobile Number"
             required
           />
-          <button type="button" class="search-btn btn">Search</button>
+          <button
+            type="button"
+            class="search-btn btn"
+            onclick="searchCustomer()"
+          >
+            Search
+          </button>
         </div>
         <div class="form-group">
           <div class="form-row">
-            <label class="label">Customer ID</label>
+            <label class="label" for="customerId">Customer ID</label>
             <input type="text" id="customerId" name="customerId" required />
           </div>
           <div class="form-row">
-            <label class="label">Customer Name</label>
+            <label class="label" for="customerName">Customer Name</label>
             <input type="text" id="customerName" name="customerName" required />
           </div>
           <div class="form-row">
-            <label class="label">Customer Address</label>
+            <label class="label" for="customerAddress">Customer Address</label>
             <input
               type="text"
               id="customerAddress"
@@ -53,8 +59,16 @@
           </div>
           <div class="form-row">
             <div class="button-group">
-              <button type="button" class="clear-btn btn">Clear</button>
-              <button type="submit" class="delete-btn btn">Delete</button>
+              <button type="button" class="clear-btn btn" onclick="clearForm()">
+                Clear
+              </button>
+              <button
+                type="submit"
+                class="delete-btn btn"
+                onclick="deleteCustomer()"
+              >
+                Delete
+              </button>
             </div>
           </div>
           <div class="form-row">
@@ -65,5 +79,6 @@
         </div>
       </form>
     </section>
+    <script src="../JS/app.js"></script>
   </body>
 </html>
