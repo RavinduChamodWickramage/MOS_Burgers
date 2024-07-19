@@ -38,7 +38,9 @@
         <div class="form-group">
           <div class="form-row">
             <label class="label" for="itemCode">Item Code</label>
-            <label id="itemCode" class="item-code-label">B10##</label>
+            <label id="itemCode" class="item-code-label" id="ItemCode"
+              >B10##</label
+            >
           </div>
           <div class="form-row">
             <label class="label" for="category">Item Category</label>
@@ -82,13 +84,17 @@
           </div>
           <div class="form-row">
             <div class="button-group">
-              <button type="button" class="clear-btn btn" onclick="clearForm()">
+              <button
+                type="button"
+                class="clear-btn btn"
+                onclick="clearForm('deleteItemForm')"
+              >
                 Clear
               </button>
               <button
                 type="submit"
                 class="delete-btn btn"
-                onclick="deleteItem()"
+                onclick="deleteItem(event)"
               >
                 Delete
               </button>

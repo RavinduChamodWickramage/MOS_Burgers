@@ -59,13 +59,17 @@
           </div>
           <div class="form-row">
             <div class="button-group">
-              <button type="button" class="clear-btn btn" onclick="clearForm()">
+              <button
+                type="button"
+                class="clear-btn btn"
+                onclick="clearForm('updateCustomerForm')"
+              >
                 Clear
               </button>
               <button
                 type="submit"
                 class="update-btn btn"
-                onclick="updateCustomer()"
+                onclick="updateCustomer(event)"
               >
                 Update
               </button>

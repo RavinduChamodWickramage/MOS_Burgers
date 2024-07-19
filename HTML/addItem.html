@@ -26,7 +26,7 @@
         <div class="form-group">
           <div class="form-row">
             <label class="label">Item Code</label>
-            <label class="item-code-label">B10##</label>
+            <label class="item-code-label" id="itemCode">B10##</label>
           </div>
           <div class="form-row">
             <label class="label">Item Category</label>
@@ -70,8 +70,20 @@
           </div>
           <div class="form-row">
             <div class="button-group">
-              <button type="button" class="clear-btn btn">Clear</button>
-              <button type="submit" class="add-btn btn">Add</button>
+              <button
+                type="button"
+                class="clear-btn btn"
+                onclick="clearForm('item-form')"
+              >
+                Clear
+              </button>
+              <button
+                type="submit"
+                class="add-btn btn"
+                onclick="addItem(event)"
+              >
+                Add
+              </button>
             </div>
           </div>
           <div class="form-row">

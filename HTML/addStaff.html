@@ -26,7 +26,7 @@
         <div class="form-group">
           <div class="form-row">
             <label class="label staff-label">Login ID</label>
-            <label class="staff-code-label">MOS####</label>
+            <label class="staff-code-label" id="loginId">MOS####</label>
           </div>
           <div class="form-row">
             <label class="label staff-label">Staff Member ID</label>
@@ -52,8 +52,20 @@
           </div>
           <div class="form-row">
             <div class="button-group">
-              <button type="button" class="clear-btn btn">Clear</button>
-              <button type="submit" class="add-btn btn">Add</button>
+              <button
+                type="button"
+                class="clear-btn btn"
+                onclick="clearForm('staff-form')"
+              >
+                Clear
+              </button>
+              <button
+                type="submit"
+                class="add-btn btn"
+                onclick="addStaff(event)"
+              >
+                Add
+              </button>
             </div>
           </div>
           <div class="form-row">

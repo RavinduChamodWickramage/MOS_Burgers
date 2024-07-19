@@ -28,9 +28,9 @@
             type="text"
             id="searchStaffId"
             name="searchStaffId"
-            placeholder="Enter Staff's ID or Name"
+            placeholder="Enter Staff's NIC or Name"
             required
-            aria-label="Enter Staff's ID or Name"
+            aria-label="Enter Staff's NIC or Name"
           />
           <button
             type="button"
@@ -96,13 +96,17 @@
           </div>
           <div class="form-row">
             <div class="button-group">
-              <button type="button" class="clear-btn btn" onclick="clearForm()">
+              <button
+                type="button"
+                class="clear-btn btn"
+                onclick="clearForm('deleteStaffForm')"
+              >
                 Clear
               </button>
               <button
                 type="submit"
                 class="delete-btn btn"
-                onclick="deleteStaff()"
+                onclick="deleteStaff(event)"
               >
                 Delete
               </button>

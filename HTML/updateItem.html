@@ -38,7 +38,7 @@
         <div class="form-group">
           <div class="form-row">
             <label class="label" for="itemCode">Item Code</label>
-            <label class="item-code-label" id="itemCodeLabel">B10##</label>
+            <label class="item-code-label" id="itemCode">B10##</label>
           </div>
           <div class="form-row">
             <label class="label">Item Category</label>
@@ -82,13 +82,17 @@
           </div>
           <div class="form-row">
             <div class="button-group">
-              <button type="button" class="clear-btn btn" onclick="clearForm()">
+              <button
+                type="button"
+                class="clear-btn btn"
+                onclick="clearForm('updateItemForm')"
+              >
                 Clear
               </button>
               <button
                 type="submit"
                 class="update-btn btn"
-                onclick="updateItem()"
+                onclick="updateItem(event)"
               >
                 Update
               </button>
