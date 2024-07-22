@@ -378,6 +378,8 @@ const items = [
   },
 ];
 
+let orders = [];
+
 function clearForm(formId) {
   document.getElementById(formId).reset();
 }
@@ -799,3 +801,8 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
   updateItemCode();
 });
+
+function generateOrderId() {
+  const orderNumber = orders.length + 1;
+  return "O" + orderNumber.toString().padStart(4, "0");
+}
