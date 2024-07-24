@@ -42,8 +42,7 @@ let customers = [
   },
 ];
 
-const items = [
-  // Burgers
+let items = [
   {
     itemCode: "B1001",
     category: "Burgers",
@@ -143,7 +142,6 @@ const items = [
     discount: 0,
   },
 
-  // Submarines
   {
     itemCode: "B1016",
     category: "Submarines",
@@ -208,7 +206,6 @@ const items = [
     discount: 0,
   },
 
-  // Fries
   {
     itemCode: "B1025",
     category: "Fries",
@@ -252,7 +249,6 @@ const items = [
     discount: 0,
   },
 
-  // Pasta
   {
     itemCode: "B1031",
     category: "Pasta",
@@ -303,7 +299,6 @@ const items = [
     discount: 1,
   },
 
-  // Chicken
   {
     itemCode: "B1038",
     category: "Chicken",
@@ -347,7 +342,6 @@ const items = [
     discount: 0,
   },
 
-  // Beverages
   {
     itemCode: "B1044",
     category: "Beverages",
@@ -382,6 +376,8 @@ let orders = [];
 
 function clearForm(formId) {
   document.getElementById(formId).reset();
+  document.querySelector(".add-order-table tbody").innerHTML = "";
+  updateOrderSummary();
 }
 
 function adminLogin(event) {
@@ -805,4 +801,175 @@ document.addEventListener("DOMContentLoaded", function () {
 function generateOrderId() {
   const orderNumber = orders.length + 1;
   return "O" + orderNumber.toString().padStart(4, "0");
+}
+
+function setOrderId() {
+  document.getElementById("orderId").textContent = generateOrderId();
+}
+
+window.onload = setOrderId;
+
+function addItem() {
+  let tableBody = document.querySelector(".add-order-table tbody");
+  let newRow = tableBody.insertRow();
+
+  newRow.innerHTML = `
+    <td class="itemCodeCell">
+        <input type="text" class="itemSearch" placeholder="Enter Item Code" oninput="updateItemDetails(this)" />
+    </td>
+    <td class="itemCategory"></td>
+    <td class="itemName"></td>
+    <td class="itemPrice"></td>
+    <td class="itemDiscount">0.00</td>
+    <td>
+        <i class="fa-regular fa-square-minus" onclick="decrementQuantity(this)"></i>
+        <span class="quantity">1</span>
+        <i class="fa-regular fa-square-plus" onclick="incrementQuantity(this)"></i>
+    </td>
+    <td class="itemTotal">0.00</td>
+    <td class="deleteBtn">
+        <i class="fa-solid fa-trash" onclick="deleteItem(this)"></i>
+    </td>
+  `;
+
+  updateOrderSummary();
+}
+
+function updateItemDetails(input) {
+  let row = input.closest("tr");
+  let itemCode = input.value.trim().toLowerCase();
+
+  let item = items.find((i) => i.itemCode.toLowerCase() === itemCode);
+
+  if (item) {
+    row.querySelector(".itemCategory").textContent = item.category;
+    row.querySelector(".itemName").textContent = item.itemName;
+    row.querySelector(".itemPrice").textContent = item.price.toFixed(2);
+    row.querySelector(".itemDiscount").textContent = item.discount.toFixed(2);
+    row.querySelector(".quantity").textContent = "1";
+    updateItemTotal(row);
+  } else {
+    row.querySelector(".itemCategory").textContent = "";
+    row.querySelector(".itemName").textContent = "";
+    row.querySelector(".itemPrice").textContent = "";
+    row.querySelector(".itemDiscount").textContent = "0.00";
+    row.querySelector(".itemTotal").textContent = "0.00";
+  }
+  updateOrderSummary();
+}
+
+function updateItemTotal(row) {
+  let price = parseFloat(row.querySelector(".itemPrice").textContent) || 0;
+  let discount =
+    parseFloat(row.querySelector(".itemDiscount").textContent) || 0;
+  let quantity = parseInt(row.querySelector(".quantity").textContent) || 1;
+  let total = price * quantity * (1 - discount / 100);
+  row.querySelector(".itemTotal").textContent = total.toFixed(2);
+  updateOrderSummary();
+}
+
+function decrementQuantity(element) {
+  let quantityElement = element.nextElementSibling;
+  let quantity = parseInt(quantityElement.textContent);
+  if (quantity > 1) {
+    quantityElement.textContent = quantity - 1;
+    updateItemTotal(element.closest("tr"));
+  }
+}
+
+function incrementQuantity(element) {
+  let quantityElement = element.previousElementSibling;
+  let quantity = parseInt(quantityElement.textContent);
+  quantityElement.textContent = quantity + 1;
+  updateItemTotal(element.closest("tr"));
+}
+
+function deleteItem(element) {
+  let row = element.closest("tr");
+  row.remove();
+  updateOrderSummary();
+}
+
+function updateOrderSummary() {
+  let totalDiscount = 0;
+  let totalAmount = 0;
+
+  let rows = document.querySelectorAll(".add-order-table tbody tr");
+  rows.forEach((row) => {
+    let itemPrice =
+      parseFloat(row.querySelector(".itemPrice").textContent) || 0;
+    let quantity = parseInt(row.querySelector(".quantity").textContent) || 1;
+    let itemDiscount =
+      parseFloat(row.querySelector(".itemDiscount").textContent) || 0;
+    let itemTotal =
+      parseFloat(row.querySelector(".itemTotal").textContent) || 0;
+
+    totalDiscount += itemPrice * quantity * (itemDiscount / 100);
+    totalAmount += itemTotal;
+  });
+
+  document.getElementById("discount").value = totalDiscount.toFixed(2);
+  document.getElementById("total").value = totalAmount.toFixed(2);
+}
+
+function addOrder(event) {
+  event.preventDefault();
+
+  let customerId = document.getElementById("customerId").value;
+  let customer = customers.find((c) => c.customerId === customerId);
+
+  if (!customer) {
+    alert("Invalid Customer ID");
+    return;
+  }
+
+  let orderId = generateOrderId();
+
+  let orderItems = [];
+  let rows = document.querySelectorAll(".add-order-table tbody tr");
+
+  rows.forEach((row) => {
+    let itemCode = row.querySelector(".itemSearch").value;
+    let itemCategory = row.querySelector(".itemCategory").textContent;
+    let itemName = row.querySelector(".itemName").textContent;
+    let itemPrice =
+      parseFloat(row.querySelector(".itemPrice").textContent) || 0;
+    let itemDiscount =
+      parseFloat(row.querySelector(".itemDiscount").textContent) || 0;
+    let quantity = parseInt(row.querySelector(".quantity").textContent) || 1;
+    let itemTotal =
+      parseFloat(row.querySelector(".itemTotal").textContent) || 0;
+
+    if (itemCode) {
+      orderItems.push({
+        itemCode,
+        itemCategory,
+        itemName,
+        itemPrice,
+        itemDiscount,
+        quantity,
+        itemTotal,
+      });
+    }
+  });
+
+  let totalDiscount =
+    parseFloat(document.getElementById("discount").value) || 0;
+  let totalAmount = parseFloat(document.getElementById("total").value) || 0;
+
+  let newOrder = {
+    orderNo: orderId,
+    orderId: orderId,
+    customerId: customerId,
+    customerName: customer.customerName,
+    orderDateTime: new Date().toLocaleString(),
+    orderedItems: orderItems,
+    totalDiscount: totalDiscount,
+    totalAmount: totalAmount,
+  };
+
+  orders.push(newOrder);
+  clearForm("order-form");
+  alert("Order added successfully!");
+  setOrderId();
 }
