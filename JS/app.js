@@ -372,13 +372,209 @@ let items = [
   },
 ];
 
-let orders = [];
+let orders = [
+  {
+    orderId: "O0001",
+    customerId: "0771234567",
+    customerName: "Kasun Perera",
+    orderDateTime: "2024-07-23 12:34:56",
+    orderedItems: [
+      {
+        itemCode: "B1001",
+        itemName: "Classic Burger (Large)",
+        price: 750.0,
+        quantity: 2,
+        discount: 0,
+        itemTotal: 1500.0,
+      },
+      {
+        itemCode: "B1025",
+        itemName: "Steak Fries (Large)",
+        price: 1200.0,
+        quantity: 1,
+        discount: 0,
+        itemTotal: 1200.0,
+      },
+    ],
+    totalDiscount: 0,
+    totalAmount: 2700.0,
+  },
+  {
+    orderId: "O0002",
+    customerId: "0712316741",
+    customerName: "Rohini Senasinghe",
+    orderDateTime: "2024-07-23 13:45:32",
+    orderedItems: [
+      {
+        itemCode: "B1002",
+        itemName: "Classic Burger (Regular)",
+        price: 1500.0,
+        quantity: 1,
+        discount: 15,
+        itemTotal: 1275.0,
+      },
+      {
+        itemCode: "B1033",
+        itemName: "Ground Turkey Pasta Bake",
+        price: 2900.0,
+        quantity: 1,
+        discount: 10,
+        itemTotal: 2610.0,
+      },
+    ],
+    totalDiscount: 515.0,
+    totalAmount: 3885.0,
+  },
+  {
+    orderId: "O0003",
+    customerId: "0769876543",
+    customerName: "Shanika Fernando",
+    orderDateTime: "2024-07-23 14:56:43",
+    orderedItems: [
+      {
+        itemCode: "B1045",
+        itemName: "Coca-Cola (330ml)",
+        price: 1230.0,
+        quantity: 3,
+        discount: 0,
+        itemTotal: 3690.0,
+      },
+      {
+        itemCode: "B1010",
+        itemName: "Olive Burger",
+        price: 1800.0,
+        quantity: 1,
+        discount: 0,
+        itemTotal: 1800.0,
+      },
+    ],
+    totalDiscount: 0,
+    totalAmount: 5490.0,
+  },
+  {
+    orderId: "O0004",
+    customerId: "0723456789",
+    customerName: "Dinesh Gunawardena",
+    orderDateTime: "2024-07-23 15:07:54",
+    orderedItems: [
+      {
+        itemCode: "B1038",
+        itemName: "Fried Chicken (Small)",
+        price: 1200.0,
+        quantity: 2,
+        discount: 0,
+        itemTotal: 2400.0,
+      },
+      {
+        itemCode: "B1029",
+        itemName: "French Fries (Small)",
+        price: 450.0,
+        quantity: 2,
+        discount: 0,
+        itemTotal: 900.0,
+      },
+    ],
+    totalDiscount: 0,
+    totalAmount: 3300.0,
+  },
+  {
+    orderId: "O0005",
+    customerId: "0734567890",
+    customerName: "Anushka Wijesinghe",
+    orderDateTime: "2024-07-23 16:18:25",
+    orderedItems: [
+      {
+        itemCode: "B1008",
+        itemName: "Bacon Burger",
+        price: 650.0,
+        quantity: 2,
+        discount: 15,
+        itemTotal: 1105.0,
+      },
+      {
+        itemCode: "B1034",
+        itemName: "Creamy Shrimp Pasta",
+        price: 2000.0,
+        quantity: 1,
+        discount: 0,
+        itemTotal: 2000.0,
+      },
+    ],
+    totalDiscount: 195.0,
+    totalAmount: 3105.0,
+  },
+];
 
 function clearForm(formId) {
   document.getElementById(formId).reset();
-  document.querySelector(".add-order-table tbody").innerHTML = "";
-  updateOrderSummary();
+
+  const tableBody = document.querySelector(".add-order-table tbody");
+  if (tableBody) {
+    tableBody.innerHTML = "";
+  }
+
+  const itemCodeElement = document.getElementById("itemCode");
+  const loginIdElement = document.getElementById("loginId");
+  const orderIdElement = document.getElementById("orderId");
+
+  if (itemCodeElement) {
+    itemCodeElement.textContent = "";
+  }
+  if (loginIdElement) {
+    loginIdElement.textContent = "";
+  }
+  if (orderIdElement) {
+    orderIdElement.textContent = "";
+  }
+
+  if (typeof updateOrderSummary === "function") {
+    updateOrderSummary();
+  }
 }
+
+function isUpdateItemPage() {
+  return window.location.pathname.endsWith("updateItem.html");
+}
+
+function isUpdateOrderPage() {
+  return window.location.pathname.endsWith("updateOrder.html");
+}
+
+function isUpdateStaffPage() {
+  return window.location.pathname.endsWith("updateStaff.html");
+}
+
+function isDeleteItemPage() {
+  return window.location.pathname.endsWith("deleteItem.html");
+}
+
+function isDeleteOrderPage() {
+  return window.location.pathname.endsWith("deleteOrder.html");
+}
+
+function isDeleteStaffPage() {
+  return window.location.pathname.endsWith("deleteStaff.html");
+}
+
+window.onload = function () {
+  if (isUpdateItemPage()) {
+    document.getElementById("itemCode").textContent = "";
+  } else if (isUpdateOrderPage()) {
+    document.getElementById("orderId").textContent = "";
+  } else if (isUpdateStaffPage()) {
+    document.getElementById("loginId").textContent = "";
+  } else if (isDeleteItemPage()) {
+    document.getElementById("itemCode").textContent = "";
+  } else if (isDeleteOrderPage()) {
+    document.getElementById("orderId").textContent = "";
+  } else if (isDeleteStaffPage()) {
+    document.getElementById("loginId").textContent = "";
+  } else {
+    updateItemCode();
+    setOrderId();
+    updateLoginId();
+  }
+};
 
 function adminLogin(event) {
   event.preventDefault();
@@ -559,10 +755,6 @@ function populateStaffTable() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  populateStaffTable();
-});
-
-document.addEventListener("DOMContentLoaded", function () {
   updateLoginId();
 });
 
@@ -659,15 +851,6 @@ function populateCustomerTable() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  populateCustomerTable();
-});
-
-// function updateItemCode() {
-//   const itemCode = "B" + (items.length + 1001).toString().padStart(4, "0");
-//   document.getElementById("itemCode").textContent = itemCode;
-// }
-
 function updateItemCode() {
   const highestCode = items.reduce((max, item) => {
     const code = parseInt(item.itemCode.substring(1), 10);
@@ -717,6 +900,11 @@ function searchItem() {
     document.getElementById("itemName").value = item.itemName;
     document.getElementById("itemPrice").value = item.price.toFixed(2);
     document.getElementById("itemDiscount").value = item.discount;
+
+    console.log(`Setting category value to: ${item.category}`);
+    console.log(
+      `Current category value is: ${document.getElementById("category").value}`
+    );
   } else {
     alert("Item not found.");
     clearForm("updateItemForm");
@@ -791,10 +979,6 @@ function populateItemTable() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  populateItemTable();
-});
-
-document.addEventListener("DOMContentLoaded", function () {
   updateItemCode();
 });
 
@@ -806,8 +990,6 @@ function generateOrderId() {
 function setOrderId() {
   document.getElementById("orderId").textContent = generateOrderId();
 }
-
-window.onload = setOrderId;
 
 function addItem() {
   let tableBody = document.querySelector(".add-order-table tbody");
@@ -958,7 +1140,6 @@ function addOrder(event) {
   let totalAmount = parseFloat(document.getElementById("total").value) || 0;
 
   let newOrder = {
-    orderNo: orderId,
     orderId: orderId,
     customerId: customerId,
     customerName: customer.customerName,
@@ -973,3 +1154,168 @@ function addOrder(event) {
   alert("Order added successfully!");
   setOrderId();
 }
+
+function updateOrder(event) {
+  event.preventDefault();
+
+  const orderId = document.getElementById("orderedId").textContent.trim();
+  const orderIndex = orders.findIndex((o) => o.orderedId === orderId);
+
+  if (orderIndex === -1) {
+    alert("Order not found!");
+    return;
+  }
+
+  const customerId = document.getElementById("customerId").value;
+  const customer = customers.find((c) => c.customerId === customerId);
+
+  if (!customer) {
+    alert("Invalid Customer ID");
+    return;
+  }
+
+  const orderItems = [];
+  const rows = document.querySelectorAll(".add-order-table tbody tr");
+
+  rows.forEach((row) => {
+    const itemCode = row.querySelector(".itemCode").textContent;
+    const itemCategory = row.querySelector(".itemCategory").textContent;
+    const itemName = row.querySelector(".itemName").textContent;
+    const itemPrice =
+      parseFloat(row.querySelector(".itemPrice").textContent) || 0;
+    const itemDiscount =
+      parseFloat(row.querySelector(".itemDiscount").textContent) || 0;
+    const quantity = parseInt(row.querySelector(".quantity").textContent) || 1;
+    const itemTotal =
+      parseFloat(row.querySelector(".itemTotal").textContent) || 0;
+
+    if (itemCode) {
+      orderItems.push({
+        itemCode,
+        itemCategory,
+        itemName,
+        itemPrice,
+        itemDiscount,
+        quantity,
+        itemTotal,
+      });
+    }
+  });
+
+  const totalDiscount =
+    parseFloat(document.getElementById("discount").value) || 0;
+  const totalAmount = parseFloat(document.getElementById("total").value) || 0;
+
+  orders[orderIndex] = {
+    orderId,
+    customerId,
+    customerName: customer.customerName,
+    orderDateTime: new Date().toLocaleString(),
+    orderedItems: orderItems,
+    totalDiscount,
+    totalAmount,
+  };
+
+  clearForm("updateOrderForm");
+
+  alert("Order updated successfully!");
+}
+
+function searchOrder() {
+  const orderId = document.getElementById("searchItemId").value.trim();
+  const order = orders.find((o) => o.orderId === orderId);
+
+  if (order) {
+    document.getElementById("orderId").textContent = order.orderId;
+    document.getElementById("customerId").value = order.customerId;
+    document.getElementById("discount").value = order.totalDiscount.toFixed(2);
+    document.getElementById("total").value = order.totalAmount.toFixed(2);
+
+    let tableBody = document.querySelector(".add-order-table tbody");
+    tableBody.innerHTML = "";
+
+    order.orderedItems.forEach((item) => {
+      let newRow = tableBody.insertRow();
+
+      newRow.innerHTML = `
+        <td class="itemCode">${item.itemCode}</td>
+        <td class="itemCategory">${item.itemCategory || "N/A"}</td>
+        <td class="itemName">${item.itemName}</td>
+        <td class="itemPrice">${item.price.toFixed(2)}</td>
+        <td class="itemDiscount">${item.discount.toFixed(2)}</td>
+        <td>
+            <i class="fa-regular fa-square-minus" onclick="decrementQuantity(this)"></i>
+            <span class="quantity">${item.quantity}</span>
+            <i class="fa-regular fa-square-plus" onclick="incrementQuantity(this)"></i>
+        </td>
+        <td class="itemTotal">${item.itemTotal.toFixed(2)}</td>
+        <td class="deleteBtn">
+            <i class="fa-solid fa-trash" onclick="deleteItem(this)"></i>
+        </td>
+      `;
+    });
+
+    updateOrderSummary();
+  } else {
+    alert("Order not found!");
+    clearForm("updateOrderForm");
+  }
+}
+
+function deleteOrder(event) {
+  event.preventDefault();
+
+  let orderId = document.getElementById("orderId").textContent;
+  let orderIndex = orders.findIndex((o) => o.orderId === orderId);
+
+  if (orderIndex === -1) {
+    alert("Order not found.");
+    return;
+  }
+
+  orders.splice(orderIndex, 1);
+
+  clearForm("deleteOrderForm");
+  alert("Order deleted successfully!");
+}
+
+function populateOrderTable() {
+  const tableBody = document.getElementById("orderTableBody");
+  tableBody.innerHTML = "";
+
+  orders.forEach((order, index) => {
+    const itemList = order.orderedItems
+      .map((item) => `${item.itemName} (x${item.quantity})`)
+      .join(", ");
+
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td class="order-no">${index + 1}</td>
+      <td>${order.orderId}</td>
+      <td>${order.customerId}</td>
+      <td>${order.customerName}</td>
+      <td>${order.orderDateTime}</td>
+      <td>${itemList}</td>
+      <td>${order.totalDiscount.toFixed(2)}</td>
+      <td>${order.totalAmount.toFixed(2)}</td>
+    `;
+
+    tableBody.appendChild(row);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  if (document.getElementById("staffTableBody")) {
+    populateStaffTable();
+  }
+  if (document.getElementById("customerTableBody")) {
+    populateCustomerTable();
+  }
+  if (document.getElementById("itemTableBody")) {
+    populateItemTable();
+  }
+  if (document.getElementById("orderTableBody")) {
+    populateOrderTable();
+  }
+});
