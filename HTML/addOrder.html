@@ -26,7 +26,7 @@
         <div class="form-group">
           <div class="form-row">
             <label class="label order-label">Order ID</label>
-            <label class="order-code-label" id="orderId">O####</label>
+            <label class="order-code-label" id="orderIdLabel">O####</label>
           </div>
           <div class="form-row">
             <label class="label order-label">Customer ID</label>
@@ -106,7 +106,22 @@
           </div>
           <div class="form-row">
             <div class="staff-link">
-              <a href="staffPage.html" class="btn home-btn">Staff Page</a>
+              <a
+                href="staffPage.html"
+                class="btn home-btn"
+                id="staffButton"
+                style="display: none"
+                >Staff Page</a
+              >
+            </div>
+            <div class="admin-link">
+              <a
+                href="adminPage.html"
+                class="btn home-btn"
+                id="adminButton"
+                style="display: none"
+                >Admin Page</a
+              >
             </div>
           </div>
         </div>
@@ -117,5 +132,8 @@
       crossorigin="anonymous"
     ></script>
     <script src="../JS/app.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", displayUserButtons);
+    </script>
   </body>
 </html>

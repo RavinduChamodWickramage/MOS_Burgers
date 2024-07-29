@@ -505,6 +505,7 @@ let orders = [
   },
 ];
 
+// Clear form fields and table contents
 function clearForm(formId) {
   document.getElementById(formId).reset();
 
@@ -532,6 +533,7 @@ function clearForm(formId) {
   }
 }
 
+// Page type checking functions
 function isUpdateItemPage() {
   return window.location.pathname.endsWith("updateItem.html");
 }
@@ -556,6 +558,11 @@ function isDeleteStaffPage() {
   return window.location.pathname.endsWith("deleteStaff.html");
 }
 
+function isLoadOrderPage() {
+  return window.location.pathname.endsWith("addOrder.html");
+}
+
+// On window load
 window.onload = function () {
   if (isUpdateItemPage()) {
     document.getElementById("itemCode").textContent = "";
@@ -569,13 +576,15 @@ window.onload = function () {
     document.getElementById("orderId").textContent = "";
   } else if (isDeleteStaffPage()) {
     document.getElementById("loginId").textContent = "";
+  } else if (isLoadOrderPage()) {
+    document.getElementById("orderId").textContent = setOrderId();
   } else {
     updateItemCode();
-    setOrderId();
     updateLoginId();
   }
 };
 
+// Admin login function
 function adminLogin(event) {
   event.preventDefault();
   const username = document.getElementById("username").value;
@@ -585,6 +594,7 @@ function adminLogin(event) {
 
   if (admin) {
     if (admin.password === password) {
+      localStorage.setItem("userType", "admin");
       window.location.href = "adminPage.html";
     } else {
       alert("Invalid password. Please try again.");
@@ -594,6 +604,7 @@ function adminLogin(event) {
   }
 }
 
+// Staff login function
 function loginStaff(event) {
   event.preventDefault();
   const username = document.getElementById("username").value;
@@ -603,6 +614,7 @@ function loginStaff(event) {
 
   if (staff) {
     if (staff.staffNIC === password) {
+      localStorage.setItem("userType", "staff");
       window.location.href = "staffPage.html";
     } else {
       alert("Invalid password. Please try again.");
@@ -613,19 +625,23 @@ function loginStaff(event) {
 }
 
 function updateLoginId() {
-  const loginId = "MOS" + (staffs.length + 1).toString().padStart(4, "0");
+  let staffArray = JSON.parse(localStorage.getItem("staffDetails")) || [];
+
+  const loginId = "MOS" + (staffArray.length + 1).toString().padStart(4, "0");
   document.getElementById("loginId").textContent = loginId;
 }
 
 function addStaff(event) {
   event.preventDefault();
 
+  let staffArray = JSON.parse(localStorage.getItem("staffDetails")) || [];
+
   const staffId = document.getElementById("staffId").value;
   const staffName = document.getElementById("staffName").value;
   const staffAddress = document.getElementById("staffAddress").value;
   const staffNIC = document.getElementById("staffNIC").value;
 
-  const loginId = "MOS" + (staffs.length + 1).toString().padStart(4, "0");
+  const loginId = "MOS" + (staffArray.length + 1).toString().padStart(4, "0");
 
   const newStaff = {
     username: loginId,
@@ -636,7 +652,15 @@ function addStaff(event) {
     staffNIC: staffNIC,
   };
 
-  staffs.push(newStaff);
+  // staffs.push(newStaff);
+
+  staffArray.push(newStaff);
+
+  let updatedStaff = JSON.stringify(staffArray);
+
+  localStorage.setItem("staffDetails", updatedStaff);
+
+  console.log(localStorage.getItem("staffDetails"));
 
   alert(
     `Staff added successfully! Login ID: ${loginId}, Password: ${staffNIC}`
@@ -646,8 +670,10 @@ function addStaff(event) {
 }
 
 function searchStaff() {
+  let staffArray = JSON.parse(localStorage.getItem("staffDetails")) || [];
+
   const searchTerm = document
-    .getElementById("searchItemId")
+    .getElementById("searchStaffId")
     .value.trim()
     .toLowerCase();
 
@@ -656,7 +682,7 @@ function searchStaff() {
     return;
   }
 
-  const staff = staffs.find(
+  const staff = staffArray.find(
     (staff) =>
       staff.staffNIC.toLowerCase() === searchTerm ||
       staff.staffName.toLowerCase() === searchTerm
@@ -677,17 +703,21 @@ function searchStaff() {
 function updateStaff(event) {
   event.preventDefault();
 
+  let staffArray = JSON.parse(localStorage.getItem("staffDetails")) || [];
+
   const loginId = document.getElementById("loginId").textContent.trim();
   const staffId = document.getElementById("staffId").value.trim();
   const staffName = document.getElementById("staffName").value.trim();
   const staffAddress = document.getElementById("staffAddress").value.trim();
   const staffNIC = document.getElementById("staffNIC").value.trim();
 
-  const staffIndex = staffs.findIndex((staff) => staff.username === loginId);
+  const staffIndex = staffArray.findIndex(
+    (staff) => staff.username === loginId
+  );
 
   if (staffIndex !== -1) {
-    staffs[staffIndex] = {
-      ...staffs[staffIndex],
+    staffArray[staffIndex] = {
+      ...staffArray[staffIndex],
       staffId: staffId,
       staffName: staffName,
       staffAddress: staffAddress,
@@ -707,6 +737,8 @@ function updateStaff(event) {
 function deleteStaff(event) {
   event.preventDefault();
 
+  let staffArray = JSON.parse(localStorage.getItem("staffDetails")) || [];
+
   const searchTerm = document
     .getElementById("searchStaffId")
     .value.trim()
@@ -717,14 +749,15 @@ function deleteStaff(event) {
     return;
   }
 
-  const staffIndex = staffs.findIndex(
+  const staffIndex = staffArray.findIndex(
     (staff) =>
       staff.staffNIC.toLowerCase() === searchTerm ||
       staff.staffName.toLowerCase() === searchTerm
   );
 
   if (staffIndex !== -1) {
-    staffs.splice(staffIndex, 1);
+    staffArray.splice(staffIndex, 1);
+    localStorage.setItem("staffDetails", JSON.stringify(staffArray));
     alert("Staff member deleted successfully!");
     clearForm("deleteStaffForm");
     populateStaffTable();
@@ -738,7 +771,9 @@ function populateStaffTable() {
   const tableBody = document.getElementById("staffTableBody");
   tableBody.innerHTML = "";
 
-  staffs.forEach((staff, index) => {
+  let staffArray = JSON.parse(localStorage.getItem("staffDetails")) || [];
+
+  staffArray.forEach((staff, index) => {
     const row = document.createElement("tr");
 
     row.innerHTML = `
@@ -982,15 +1017,6 @@ document.addEventListener("DOMContentLoaded", function () {
   updateItemCode();
 });
 
-function generateOrderId() {
-  const orderNumber = orders.length + 1;
-  return "O" + orderNumber.toString().padStart(4, "0");
-}
-
-function setOrderId() {
-  document.getElementById("orderId").textContent = generateOrderId();
-}
-
 function addItem() {
   let tableBody = document.querySelector(".add-order-table tbody");
   let newRow = tableBody.insertRow();
@@ -1094,6 +1120,17 @@ function updateOrderSummary() {
   document.getElementById("total").value = totalAmount.toFixed(2);
 }
 
+// function generateOrderId() {
+//   const orderNumber = orders.length + 1;
+//   return "O" + orderNumber.toString().padStart(4, "0");
+// }
+
+function setOrderId() {
+  let orderNumber = orders.length + 1;
+  let newOrderId = "O" + orderNumber.toString().padStart(4, "0");
+  document.getElementById("orderIdLabel").textContent = newOrderId;
+}
+
 function addOrder(event) {
   event.preventDefault();
 
@@ -1105,7 +1142,7 @@ function addOrder(event) {
     return;
   }
 
-  let orderId = generateOrderId();
+  let orderId = setOrderId();
 
   let orderItems = [];
   let rows = document.querySelectorAll(".add-order-table tbody tr");
@@ -1319,3 +1356,21 @@ document.addEventListener("DOMContentLoaded", function () {
     populateOrderTable();
   }
 });
+
+// Display the correct user-specific buttons
+function displayUserButtons() {
+  const userType = localStorage.getItem("userType");
+
+  if (userType === "admin") {
+    document.getElementById("adminButton").style.display = "block";
+    document.getElementById("staffButton").style.display = "none";
+  } else if (userType === "staff") {
+    document.getElementById("staffButton").style.display = "block";
+    document.getElementById("adminButton").style.display = "none";
+  } else {
+    document.getElementById("adminButton").style.display = "none";
+    document.getElementById("staffButton").style.display = "none";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", displayUserButtons);
