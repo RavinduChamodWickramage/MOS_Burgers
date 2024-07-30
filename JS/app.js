@@ -636,12 +636,24 @@ function updateLoginId() {
 function addStaff(event) {
   event.preventDefault();
 
-  let staffArray = JSON.parse(localStorage.getItem("staffDetails")) || [];
+  const staffId = document.getElementById("staffId").value.trim();
+  const staffName = document.getElementById("staffName").value.trim();
+  const staffAddress = document.getElementById("staffAddress").value.trim();
+  const staffNIC = document.getElementById("staffNIC").value.trim();
 
-  const staffId = document.getElementById("staffId").value;
-  const staffName = document.getElementById("staffName").value;
-  const staffAddress = document.getElementById("staffAddress").value;
-  const staffNIC = document.getElementById("staffNIC").value;
+  if (!staffId || !staffName || !staffAddress || !staffNIC) {
+    alert("All fields are required to add a staff member.");
+    return;
+  }
+
+  if (!validatePhoneNumber("staffId")) {
+    alert(
+      "Invalid phone number. Please enter a valid Sri Lankan mobile number."
+    );
+    return;
+  }
+
+  let staffArray = JSON.parse(localStorage.getItem("staffDetails")) || [];
 
   const loginId = "MOS" + (staffArray.length + 1).toString().padStart(4, "0");
 
@@ -706,13 +718,18 @@ function searchStaff() {
 function updateStaff(event) {
   event.preventDefault();
 
-  let staffArray = JSON.parse(localStorage.getItem("staffDetails")) || [];
-
   const loginId = document.getElementById("loginId").textContent.trim();
   const staffId = document.getElementById("staffId").value.trim();
   const staffName = document.getElementById("staffName").value.trim();
   const staffAddress = document.getElementById("staffAddress").value.trim();
   const staffNIC = document.getElementById("staffNIC").value.trim();
+
+  if (!staffId || !staffName || !staffAddress || !staffNIC) {
+    alert("All fields are required to update a staff member.");
+    return;
+  }
+
+  let staffArray = JSON.parse(localStorage.getItem("staffDetails")) || [];
 
   const staffIndex = staffArray.findIndex(
     (staff) => staff.username === loginId
@@ -805,11 +822,25 @@ document.addEventListener("DOMContentLoaded", function () {
 function addCustomer(event) {
   event.preventDefault();
 
-  let customerArray = JSON.parse(localStorage.getItem("customerDetails")) || [];
+  const customerId = document.getElementById("customerId").value.trim();
+  const customerName = document.getElementById("customerName").value.trim();
+  const customerAddress = document
+    .getElementById("customerAddress")
+    .value.trim();
 
-  const customerId = document.getElementById("customerId").value;
-  const customerName = document.getElementById("customerName").value;
-  const customerAddress = document.getElementById("customerAddress").value;
+  if (!customerId || !customerName || !customerAddress) {
+    alert("All fields are required to add a customer.");
+    return;
+  }
+
+  if (!validatePhoneNumber("customerId")) {
+    alert(
+      "Invalid phone number. Please enter a valid Sri Lankan mobile number."
+    );
+    return;
+  }
+
+  let customerArray = JSON.parse(localStorage.getItem("customerDetails")) || [];
 
   const newCustomer = {
     customerId: customerId,
@@ -850,11 +881,18 @@ function searchCustomer() {
 function updateCustomer(event) {
   event.preventDefault();
 
-  let customerArray = JSON.parse(localStorage.getItem("customerDetails")) || [];
+  const customerId = document.getElementById("customerId").value.trim();
+  const customerName = document.getElementById("customerName").value.trim();
+  const customerAddress = document
+    .getElementById("customerAddress")
+    .value.trim();
 
-  const customerId = document.getElementById("customerId").value;
-  const customerName = document.getElementById("customerName").value;
-  const customerAddress = document.getElementById("customerAddress").value;
+  if (!customerId || !customerName || !customerAddress) {
+    alert("All fields are required to update a customer.");
+    return;
+  }
+
+  let customerArray = JSON.parse(localStorage.getItem("customerDetails")) || [];
 
   const customerIndex = customerArray.findIndex(
     (c) => c.customerId === customerId
@@ -945,6 +983,27 @@ function addItem(event) {
   const itemDiscount = parseFloat(
     document.getElementById("itemDiscount").value
   );
+
+  if (!itemCode) {
+    alert("Item Code is required.");
+    return;
+  }
+  if (!category) {
+    alert("Category is required.");
+    return;
+  }
+  if (!itemName) {
+    alert("Item Name is required.");
+    return;
+  }
+  if (isNaN(itemPrice) || itemPrice <= 0) {
+    alert("Item Price must be a positive number.");
+    return;
+  }
+  if (isNaN(itemDiscount) || itemDiscount < 0) {
+    alert("Item Discount must be a non-negative number.");
+    return;
+  }
 
   const newItem = {
     itemCode: itemCode,
@@ -1183,11 +1242,19 @@ function setOrderId() {
 function addOrder(event) {
   event.preventDefault();
 
+  const customerId = document.getElementById("customerId").value.trim();
+  const discount = document.getElementById("discount").value.trim();
+  const total = document.getElementById("total").value.trim();
+
+  if (!customerId || !discount || !total) {
+    alert("All fields are required to add an order.");
+    return;
+  }
+
   let orderArray = JSON.parse(localStorage.getItem("orderDetails")) || [];
   let customerArray = JSON.parse(localStorage.getItem("customerDetails")) || [];
 
-  let customerId = document.getElementById("customerId").value;
-  let customer = customerArray.find((c) => c.customerId === customerId);
+  const customer = customerArray.find((c) => c.customerId === customerId);
 
   if (!customer) {
     alert("Invalid Customer ID");
@@ -1457,3 +1524,28 @@ function displayUserButtons() {
 }
 
 document.addEventListener("DOMContentLoaded", displayUserButtons);
+
+if (document.getElementById("customerId")) {
+  document
+    .getElementById("customerId")
+    .addEventListener("input", () => validatePhoneNumber("customerId"));
+}
+
+if (document.getElementById("staffId")) {
+  document
+    .getElementById("staffId")
+    .addEventListener("input", () => validatePhoneNumber("staffId"));
+}
+
+function validatePhoneNumber(inputId) {
+  const phoneInput = document.getElementById(inputId);
+  const phonePattern = /^(07[0-9]{8})$/;
+
+  if (phonePattern.test(phoneInput.value)) {
+    phoneInput.style.borderColor = "initial";
+    return true;
+  } else {
+    phoneInput.style.borderColor = "red";
+    return false;
+  }
+}
