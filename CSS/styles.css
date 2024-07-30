@@ -364,10 +364,188 @@ input {
   padding-bottom: 10px;
 }
 
-/* Style for input fields in the Item Code column */
 .itemSearch {
-  width: 5%; /* Makes input fill the width of the cell */
-  box-sizing: border-box; /* Includes padding and border in the element's total width and height */
-  height: 100%; /* Makes input fill the height of the cell */
-  padding: 5px; /* Adds padding inside the input field */
+  width: 5%;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 5px;
+}
+
+/* Media Queries */
+
+/* Mobile Phone */
+@media (max-width: 375px) {
+  body {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .logo img {
+    width: 150px;
+  }
+
+  .title {
+    font-size: 1.2em;
+  }
+
+  .btn-panel {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 1em;
+  }
+
+  .input-group,
+  .form-group {
+    width: 100%;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="number"],
+  textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .table-panel {
+    width: 100%;
+    height: auto;
+  }
+
+  .customer-table,
+  .item-table,
+  .order-table,
+  .staff-table {
+    font-size: smaller;
+  }
+
+  .add-order-table {
+    width: 100%;
+    font-size: smaller;
+  }
+
+  .itemCodeCell input.itemSearch {
+    width: 100%;
+  }
+
+  .itemCode,
+  .itemPrice,
+  .itemDiscount,
+  .itemCategory,
+  .itemQuantity,
+  .itemTotal {
+    width: auto;
+  }
+
+  .search-row,
+  .staff-search-row,
+  .order-search-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-row input[type="text"],
+  .staff-search-row input[type="text"],
+  .order-search-row input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .search-btn,
+  .staff-search-btn {
+    width: 100%;
+  }
+
+  .deleteBtn {
+    width: 20px;
+  }
+}
+
+/* Tablet */
+@media (min-width: 376px) and (max-width: 768px) {
+  body {
+    font-size: 16px;
+    padding: 20px;
+  }
+
+  .logo img {
+    width: 180px;
+  }
+
+  .title {
+    font-size: 1.5em;
+  }
+
+  .btn {
+    width: 150px;
+    font-size: 1em;
+  }
+
+  .input-group,
+  .form-group {
+    width: 100%;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="number"],
+  textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  .table-panel {
+    width: 90%;
+  }
+
+  .customer-table,
+  .item-table,
+  .order-table,
+  .staff-table {
+    font-size: smaller;
+  }
+
+  .add-order-table {
+    width: 90%;
+    font-size: smaller;
+  }
+
+  .itemCodeCell input.itemSearch {
+    width: 100%;
+  }
+
+  .itemCode,
+  .itemPrice,
+  .itemDiscount,
+  .itemCategory,
+  .itemQuantity,
+  .itemTotal {
+    width: auto;
+  }
+
+  .search-row,
+  .staff-search-row,
+  .order-search-row {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .search-row input[type="text"],
+  .staff-search-row input[type="text"],
+  .order-search-row input[type="text"] {
+    width: 80%;
+    box-sizing: border-box;
+  }
+
+  .search-btn,
+  .staff-search-btn {
+    width: auto;
+  }
 }

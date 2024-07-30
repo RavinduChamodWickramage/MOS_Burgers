@@ -624,6 +624,7 @@ function loginStaff(event) {
   }
 }
 
+// Update Staff Login ID
 function updateLoginId() {
   let staffArray = JSON.parse(localStorage.getItem("staffDetails")) || [];
 
@@ -631,6 +632,7 @@ function updateLoginId() {
   document.getElementById("loginId").textContent = loginId;
 }
 
+// Add new Staff Member
 function addStaff(event) {
   event.preventDefault();
 
@@ -652,8 +654,6 @@ function addStaff(event) {
     staffNIC: staffNIC,
   };
 
-  // staffs.push(newStaff);
-
   staffArray.push(newStaff);
 
   let updatedStaff = JSON.stringify(staffArray);
@@ -667,8 +667,10 @@ function addStaff(event) {
   );
   clearForm("staff-form");
   populateStaffTable();
+  updateLoginId();
 }
 
+// Search Staff Member
 function searchStaff() {
   let staffArray = JSON.parse(localStorage.getItem("staffDetails")) || [];
 
@@ -700,6 +702,7 @@ function searchStaff() {
   }
 }
 
+// Update Staff Member
 function updateStaff(event) {
   event.preventDefault();
 
@@ -725,6 +728,8 @@ function updateStaff(event) {
       password: staffNIC,
     };
 
+    localStorage.setItem("staffDetails", JSON.stringify(staffArray));
+
     alert("Staff details updated successfully!");
 
     clearForm("updateStaffForm");
@@ -734,6 +739,7 @@ function updateStaff(event) {
   }
 }
 
+// Delete Staff Member
 function deleteStaff(event) {
   event.preventDefault();
 
@@ -758,6 +764,7 @@ function deleteStaff(event) {
   if (staffIndex !== -1) {
     staffArray.splice(staffIndex, 1);
     localStorage.setItem("staffDetails", JSON.stringify(staffArray));
+
     alert("Staff member deleted successfully!");
     clearForm("deleteStaffForm");
     populateStaffTable();
@@ -767,6 +774,7 @@ function deleteStaff(event) {
   }
 }
 
+// Details of Staff
 function populateStaffTable() {
   const tableBody = document.getElementById("staffTableBody");
   tableBody.innerHTML = "";
@@ -793,8 +801,11 @@ document.addEventListener("DOMContentLoaded", function () {
   updateLoginId();
 });
 
+// Add Customer
 function addCustomer(event) {
   event.preventDefault();
+
+  let customerArray = JSON.parse(localStorage.getItem("customerDetails")) || [];
 
   const customerId = document.getElementById("customerId").value;
   const customerName = document.getElementById("customerName").value;
@@ -806,16 +817,25 @@ function addCustomer(event) {
     customerAddress: customerAddress,
   };
 
-  customers.push(newCustomer);
+  customerArray.push(newCustomer);
+
+  let updatedCustomer = JSON.stringify(customerArray);
+
+  localStorage.setItem("customerDetails", updatedCustomer);
+
+  console.log(localStorage.getItem("customerDetails"));
 
   alert(`Customer added successfully! ID: ${customerId}`);
   clearForm("customer-form");
   populateCustomerTable();
 }
 
+// Search Customer
 function searchCustomer() {
+  let customerArray = JSON.parse(localStorage.getItem("customerDetails")) || [];
+
   const searchId = document.getElementById("searchCustomerId").value;
-  const customer = customers.find((c) => c.customerId === searchId);
+  const customer = customerArray.find((c) => c.customerId === searchId);
 
   if (customer) {
     document.getElementById("customerId").value = customer.customerId;
@@ -826,21 +846,28 @@ function searchCustomer() {
   }
 }
 
+// Update Customer
 function updateCustomer(event) {
   event.preventDefault();
+
+  let customerArray = JSON.parse(localStorage.getItem("customerDetails")) || [];
 
   const customerId = document.getElementById("customerId").value;
   const customerName = document.getElementById("customerName").value;
   const customerAddress = document.getElementById("customerAddress").value;
 
-  const customerIndex = customers.findIndex((c) => c.customerId === customerId);
+  const customerIndex = customerArray.findIndex(
+    (c) => c.customerId === customerId
+  );
 
   if (customerIndex !== -1) {
-    customers[customerIndex] = {
+    customerArray[customerIndex] = {
       customerId: customerId,
       customerName: customerName,
       customerAddress: customerAddress,
     };
+
+    localStorage.setItem("customerDetails", JSON.stringify(customerArray));
 
     alert(`Customer updated successfully! ID: ${customerId}`);
     clearForm("updateCustomerForm");
@@ -850,15 +877,21 @@ function updateCustomer(event) {
   }
 }
 
+// Delete Customer
 function deleteCustomer(event) {
   event.preventDefault();
 
+  let customerArray = JSON.parse(localStorage.getItem("customerDetails")) || [];
+
   const customerId = document.getElementById("customerId").value;
 
-  const customerIndex = customers.findIndex((c) => c.customerId === customerId);
+  const customerIndex = customerArray.findIndex(
+    (c) => c.customerId === customerId
+  );
 
   if (customerIndex !== -1) {
-    customers.splice(customerIndex, 1);
+    customerArray.splice(customerIndex, 1);
+    localStorage.setItem("customerDetails", JSON.stringify(customerArray));
 
     alert(`Customer deleted successfully! ID: ${customerId}`);
     clearForm("deleteCustomerForm");
@@ -868,11 +901,14 @@ function deleteCustomer(event) {
   }
 }
 
+// Details of Customers
 function populateCustomerTable() {
   const tableBody = document.getElementById("customerTableBody");
   tableBody.innerHTML = "";
 
-  customers.forEach((customer, index) => {
+  let customerArray = JSON.parse(localStorage.getItem("customerDetails")) || [];
+
+  customerArray.forEach((customer, index) => {
     const row = document.createElement("tr");
 
     row.innerHTML = `
@@ -886,6 +922,7 @@ function populateCustomerTable() {
   });
 }
 
+// Update Item Code
 function updateItemCode() {
   const highestCode = items.reduce((max, item) => {
     const code = parseInt(item.itemCode.substring(1), 10);
@@ -897,6 +934,7 @@ function updateItemCode() {
   document.getElementById("itemCode").textContent = newCode;
 }
 
+// Add Item
 function addItem(event) {
   event.preventDefault();
 
@@ -923,6 +961,7 @@ function addItem(event) {
   updateItemCode();
 }
 
+// Search Item
 function searchItem() {
   const searchItemId = document.getElementById("searchItemId").value;
   const item = items.find(
@@ -946,6 +985,7 @@ function searchItem() {
   }
 }
 
+// Update Item
 function updateItem(event) {
   event.preventDefault();
 
@@ -976,6 +1016,7 @@ function updateItem(event) {
   updateItemCode();
 }
 
+// Delete Item
 function deleteItem(event) {
   event.preventDefault();
 
@@ -993,6 +1034,7 @@ function deleteItem(event) {
   clearForm("deleteItemForm");
 }
 
+// Details of Items
 function populateItemTable() {
   const tableBody = document.getElementById("itemTableBody");
   tableBody.innerHTML = "";
@@ -1017,6 +1059,7 @@ document.addEventListener("DOMContentLoaded", function () {
   updateItemCode();
 });
 
+// Add a new row to the order table
 function addItem() {
   let tableBody = document.querySelector(".add-order-table tbody");
   let newRow = tableBody.insertRow();
@@ -1043,6 +1086,7 @@ function addItem() {
   updateOrderSummary();
 }
 
+// Update item details in the row based on item code input
 function updateItemDetails(input) {
   let row = input.closest("tr");
   let itemCode = input.value.trim().toLowerCase();
@@ -1066,6 +1110,7 @@ function updateItemDetails(input) {
   updateOrderSummary();
 }
 
+// Update the total for an item based on price, discount, and quantity
 function updateItemTotal(row) {
   let price = parseFloat(row.querySelector(".itemPrice").textContent) || 0;
   let discount =
@@ -1076,6 +1121,7 @@ function updateItemTotal(row) {
   updateOrderSummary();
 }
 
+// Decrement the quantity of an item
 function decrementQuantity(element) {
   let quantityElement = element.nextElementSibling;
   let quantity = parseInt(quantityElement.textContent);
@@ -1085,6 +1131,7 @@ function decrementQuantity(element) {
   }
 }
 
+// Increment the quantity of an item
 function incrementQuantity(element) {
   let quantityElement = element.previousElementSibling;
   let quantity = parseInt(quantityElement.textContent);
@@ -1092,12 +1139,14 @@ function incrementQuantity(element) {
   updateItemTotal(element.closest("tr"));
 }
 
+// Delete a row from the order table
 function deleteItem(element) {
   let row = element.closest("tr");
   row.remove();
   updateOrderSummary();
 }
 
+// Update the order summary with total discount and amount
 function updateOrderSummary() {
   let totalDiscount = 0;
   let totalAmount = 0;
@@ -1120,22 +1169,25 @@ function updateOrderSummary() {
   document.getElementById("total").value = totalAmount.toFixed(2);
 }
 
-// function generateOrderId() {
-//   const orderNumber = orders.length + 1;
-//   return "O" + orderNumber.toString().padStart(4, "0");
-// }
-
+// Set Order ID
 function setOrderId() {
-  let orderNumber = orders.length + 1;
+  let orderArray = JSON.parse(localStorage.getItem("orderDetails")) || [];
+
+  let orderNumber = orderArray.length + 1;
   let newOrderId = "O" + orderNumber.toString().padStart(4, "0");
-  document.getElementById("orderIdLabel").textContent = newOrderId;
+  document.getElementById("orderId").textContent = newOrderId;
+  return newOrderId;
 }
 
+// Add Order
 function addOrder(event) {
   event.preventDefault();
 
+  let orderArray = JSON.parse(localStorage.getItem("orderDetails")) || [];
+  let customerArray = JSON.parse(localStorage.getItem("customerDetails")) || [];
+
   let customerId = document.getElementById("customerId").value;
-  let customer = customers.find((c) => c.customerId === customerId);
+  let customer = customerArray.find((c) => c.customerId === customerId);
 
   if (!customer) {
     alert("Invalid Customer ID");
@@ -1186,83 +1238,30 @@ function addOrder(event) {
     totalAmount: totalAmount,
   };
 
-  orders.push(newOrder);
-  clearForm("order-form");
+  orderArray.push(newOrder);
+
+  let updatedOrder = JSON.stringify(orderArray);
+
+  localStorage.setItem("orderDetails", updatedOrder);
+
+  console.log(localStorage.getItem("orderDetails"));
+
   alert("Order added successfully!");
+  clearForm("order-form");
+  populateOrderTable();
   setOrderId();
 }
 
-function updateOrder(event) {
-  event.preventDefault();
-
-  const orderId = document.getElementById("orderedId").textContent.trim();
-  const orderIndex = orders.findIndex((o) => o.orderedId === orderId);
-
-  if (orderIndex === -1) {
-    alert("Order not found!");
-    return;
-  }
-
-  const customerId = document.getElementById("customerId").value;
-  const customer = customers.find((c) => c.customerId === customerId);
-
-  if (!customer) {
-    alert("Invalid Customer ID");
-    return;
-  }
-
-  const orderItems = [];
-  const rows = document.querySelectorAll(".add-order-table tbody tr");
-
-  rows.forEach((row) => {
-    const itemCode = row.querySelector(".itemCode").textContent;
-    const itemCategory = row.querySelector(".itemCategory").textContent;
-    const itemName = row.querySelector(".itemName").textContent;
-    const itemPrice =
-      parseFloat(row.querySelector(".itemPrice").textContent) || 0;
-    const itemDiscount =
-      parseFloat(row.querySelector(".itemDiscount").textContent) || 0;
-    const quantity = parseInt(row.querySelector(".quantity").textContent) || 1;
-    const itemTotal =
-      parseFloat(row.querySelector(".itemTotal").textContent) || 0;
-
-    if (itemCode) {
-      orderItems.push({
-        itemCode,
-        itemCategory,
-        itemName,
-        itemPrice,
-        itemDiscount,
-        quantity,
-        itemTotal,
-      });
-    }
-  });
-
-  const totalDiscount =
-    parseFloat(document.getElementById("discount").value) || 0;
-  const totalAmount = parseFloat(document.getElementById("total").value) || 0;
-
-  orders[orderIndex] = {
-    orderId,
-    customerId,
-    customerName: customer.customerName,
-    orderDateTime: new Date().toLocaleString(),
-    orderedItems: orderItems,
-    totalDiscount,
-    totalAmount,
-  };
-
-  clearForm("updateOrderForm");
-
-  alert("Order updated successfully!");
-}
-
+// Search Order
 function searchOrder() {
-  const orderId = document.getElementById("searchItemId").value.trim();
-  const order = orders.find((o) => o.orderId === orderId);
+  let orderArray = JSON.parse(localStorage.getItem("orderDetails")) || [];
+
+  const orderId = document.getElementById("searchOrderId").value.trim();
+  const order = orderArray.find((o) => o.orderId === orderId);
 
   if (order) {
+    console.log("Order found:", order);
+
     document.getElementById("orderId").textContent = order.orderId;
     document.getElementById("customerId").value = order.customerId;
     document.getElementById("discount").value = order.totalDiscount.toFixed(2);
@@ -1272,14 +1271,15 @@ function searchOrder() {
     tableBody.innerHTML = "";
 
     order.orderedItems.forEach((item) => {
-      let newRow = tableBody.insertRow();
+      console.log("Item:", item);
 
+      let newRow = tableBody.insertRow();
       newRow.innerHTML = `
         <td class="itemCode">${item.itemCode}</td>
         <td class="itemCategory">${item.itemCategory || "N/A"}</td>
         <td class="itemName">${item.itemName}</td>
-        <td class="itemPrice">${item.price.toFixed(2)}</td>
-        <td class="itemDiscount">${item.discount.toFixed(2)}</td>
+        <td class="itemPrice">${item.itemPrice.toFixed(2)}</td>
+        <td class="itemDiscount">${item.itemDiscount.toFixed(2)}</td>
         <td>
             <i class="fa-regular fa-square-minus" onclick="decrementQuantity(this)"></i>
             <span class="quantity">${item.quantity}</span>
@@ -1299,8 +1299,86 @@ function searchOrder() {
   }
 }
 
+// Update Order
+function updateOrder(event) {
+  event.preventDefault();
+
+  let orderArray = JSON.parse(localStorage.getItem("orderDetails")) || [];
+  const customerArray =
+    JSON.parse(localStorage.getItem("customerDetails")) || [];
+
+  const orderId = document.getElementById("orderId").textContent.trim();
+  const orderIndex = orderArray.findIndex((o) => o.orderId === orderId);
+
+  if (orderIndex === -1) {
+    alert("Order not found!");
+    return;
+  }
+
+  const customerId = document.getElementById("customerId").value.trim();
+  const customer = customerArray.find((c) => c.customerId === customerId);
+
+  if (!customer) {
+    alert("Invalid Customer ID");
+    return;
+  }
+
+  const orderItems = [];
+  const rows = document.querySelectorAll(".add-order-table tbody tr");
+
+  rows.forEach((row) => {
+    const itemCode = row.querySelector(".itemCode").textContent.trim();
+    const itemCategory = row.querySelector(".itemCategory").textContent.trim();
+    const itemName = row.querySelector(".itemName").textContent.trim();
+    const itemPrice =
+      parseFloat(row.querySelector(".itemPrice").textContent.trim()) || 0;
+    const itemDiscount =
+      parseFloat(row.querySelector(".itemDiscount").textContent.trim()) || 0;
+    const quantity =
+      parseInt(row.querySelector(".quantity").textContent.trim()) || 1;
+    const itemTotal =
+      parseFloat(row.querySelector(".itemTotal").textContent.trim()) || 0;
+
+    if (itemCode) {
+      orderItems.push({
+        itemCode,
+        itemCategory,
+        itemName,
+        itemPrice,
+        itemDiscount,
+        quantity,
+        itemTotal,
+      });
+    }
+  });
+
+  const totalDiscount =
+    parseFloat(document.getElementById("discount").value.trim()) || 0;
+  const totalAmount =
+    parseFloat(document.getElementById("total").value.trim()) || 0;
+
+  orderArray[orderIndex] = {
+    orderId,
+    customerId,
+    customerName: customer.customerName,
+    orderDateTime: new Date().toLocaleString(),
+    orderedItems: orderItems,
+    totalDiscount,
+    totalAmount,
+  };
+
+  localStorage.setItem("orderDetails", JSON.stringify(orderArray));
+
+  alert("Order updated successfully!");
+  clearForm("updateOrderForm");
+  populateOrderTable();
+}
+
+// Delete Odere
 function deleteOrder(event) {
   event.preventDefault();
+
+  let orderArray = JSON.parse(localStorage.getItem("orderDetails")) || [];
 
   let orderId = document.getElementById("orderId").textContent;
   let orderIndex = orders.findIndex((o) => o.orderId === orderId);
@@ -1310,17 +1388,22 @@ function deleteOrder(event) {
     return;
   }
 
-  orders.splice(orderIndex, 1);
+  orderArray.splice(orderIndex, 1);
+  localStorage.setItem("orderDetails", JSON.stringify(orderArray));
 
-  clearForm("deleteOrderForm");
   alert("Order deleted successfully!");
+  clearForm("deleteOrderForm");
+  populateOrderTable();
 }
 
+// Details of Orders
 function populateOrderTable() {
   const tableBody = document.getElementById("orderTableBody");
   tableBody.innerHTML = "";
 
-  orders.forEach((order, index) => {
+  let orderArray = JSON.parse(localStorage.getItem("orderDetails")) || [];
+
+  orderArray.forEach((order, index) => {
     const itemList = order.orderedItems
       .map((item) => `${item.itemName} (x${item.quantity})`)
       .join(", ");
