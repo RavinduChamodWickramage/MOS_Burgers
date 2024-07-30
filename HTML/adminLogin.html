@@ -25,11 +25,23 @@
       <form id="adminLoginForm">
         <div class="input-group">
           <label class="label" for="username">Username</label>
-          <input type="text" id="username" name="username" required />
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Enter Username"
+            required
+          />
         </div>
         <div class="input-group">
           <label class="label" for="password">Password</label>
-          <input type="password" id="password" name="password" required />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter Password"
+            required
+          />
         </div>
         <div class="button-group">
           <button
@@ -53,5 +65,19 @@
       </form>
     </section>
     <script src="../JS/app.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const usernameInput = document.getElementById("username");
+        const passwordInput = document.getElementById("password");
+
+        usernameInput.addEventListener("focus", function () {
+          usernameInput.setAttribute("placeholder", "hint: admin1");
+        });
+
+        passwordInput.addEventListener("focus", function () {
+          passwordInput.setAttribute("placeholder", "hint: password1");
+        });
+      });
+    </script>
   </body>
 </html>
