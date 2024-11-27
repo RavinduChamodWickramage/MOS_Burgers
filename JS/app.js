@@ -7,10 +7,10 @@ const admins = [
 let staffs = [
   {
     username: "MOS0001",
-    staffId: "0714811327",
+    staffId: "0712345678",
     staffName: "Ravindu Wickramage",
-    staffAddress: "432/7/B, Naduna, Ganemulla",
-    staffNIC: "982391890V",
+    staffAddress: "234/7/B, Horagolla, Ganemulla",
+    staffNIC: "982392190V",
   },
 ];
 
@@ -21,7 +21,7 @@ let customers = [
     customerAddress: "No. 12, Galle Road, Colombo 3",
   },
   {
-    customerId: "0712316741",
+    customerId: "0711623147",
     customerName: "Rohini Senasinghe",
     customerAddress: "456, Kandy Road, Peradeniya",
   },
@@ -401,7 +401,7 @@ let orders = [
   },
   {
     orderId: "O0002",
-    customerId: "0712316741",
+    customerId: "0711623147",
     customerName: "Rohini Senasinghe",
     orderDateTime: "2024-07-23 13:45:32",
     orderedItems: [
